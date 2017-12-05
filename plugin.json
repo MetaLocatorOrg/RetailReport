@@ -1,0 +1,29 @@
+{
+    "name": "RetailReport",
+    "version": "0.1.0",
+    "description": "Retail report for Metalocator",
+    "theme": false,
+    "require": {
+        "piwik": ">=2.16.5"
+    },
+    "authors": [
+        {
+            "name": "Le Kien Truc",
+            "email": "afterlastangel@gmail.com",
+            "homepage": ""
+        }
+    ],
+    "support": {
+        "email": "",
+        "issues": "",
+        "forum": "",
+        "irc": "",
+        "wiki": "",
+        "source": "",
+        "docs": "",
+        "rss": ""
+    },
+    "homepage": "",
+    "license": "Copyright",
+    "keywords": []
+}

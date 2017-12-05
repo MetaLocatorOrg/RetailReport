@@ -1,0 +1,14 @@
+{
+    "RetailReport": {
+        "Retailer": "Retailer",
+        "SKU": "SKU",
+        "RetailReport": "Retail Report",
+        "GetSKUfromRetailer": "Get SKU from Retailer",
+        "SKUfromRetailer": "SKU from Retailer",
+        "Unique_Purchase": "Unique purchase",
+        "AveragePrice": "Average price",
+        "AverageQuantity": "Average quantity",
+        "PiwikInfo": "PiwikInfo",
+        "ProductName": "Product name"
+    }
+}
