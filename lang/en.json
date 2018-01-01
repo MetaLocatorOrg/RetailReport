@@ -9,6 +9,9 @@
         "AveragePrice": "Average price",
         "AverageQuantity": "Average quantity",
         "PiwikInfo": "PiwikInfo",
-        "ProductName": "Product name"
+        "ProductName": "Product name",
+        "ActionsbyRetailer": "Actions by Retailer",
+        "ActionsbySKURetailer": "Actions by SKU Retailer",
+        "SendToSMS": "Send to SMS"
     }
 }

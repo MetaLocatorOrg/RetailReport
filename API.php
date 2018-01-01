@@ -65,4 +65,35 @@ class API extends \Piwik\Plugin\API
         $dataTable = $this->getDataTable($idSite, $period, $date, $segment, $expanded, $flat, $idSubtable);
         return $dataTable;
     }
+
+    /**
+     * Another example method that returns a data table.
+     * @param int    $idSite
+     * @param string $period
+     * @param string $date
+     * @param bool|string $segment
+     * @return DataTable
+     */
+    public function getActionsbyRetailer($idSite, $period, $date, $segment = false)
+    {
+        $dataTable = Archive::createDataTableFromArchive(
+            Archiver::CLICK_ACTION_EVENT_ARCHIVE_RECORD, $idSite, $period, $date, $segment, $expanded, $flat, $idSubtable=null);
+        return $dataTable;
+    }
+
+
+    /**
+     * Another example method that returns a data table.
+     * @param int    $idSite
+     * @param string $period
+     * @param string $date
+     * @param bool|string $segment
+     * @return DataTable
+     */
+    public function getActionsbySKURetailer($idSite, $period, $date, $segment = false, $idSubtable = null)
+    {
+        $dataTable = Archive::createDataTableFromArchive(
+            Archiver::CLICK_ACTION_EVENT_ARCHIVE_RECORD, $idSite, $period, $date, $segment, $expanded, $flat, $idSubtable);
+        return $dataTable;
+    }
 }
