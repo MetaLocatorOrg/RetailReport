@@ -12,6 +12,9 @@
         "ProductName": "Product name",
         "ActionsbyRetailer": "Actions by Retailer",
         "ActionsbySKURetailer": "Actions by SKU Retailer",
-        "SendToSMS": "Send to SMS"
+        "SendToSMS": "Send to SMS",
+        "TestingReport": "TestingReport",
+        "Info": "Info",
+        "LastCompletedFullArchiving": "Last Completed Full Archiving"
     }
 }

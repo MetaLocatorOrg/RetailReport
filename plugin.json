@@ -1,10 +1,10 @@
 {
     "name": "RetailReport",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "description": "Retail report for Metalocator",
     "theme": false,
     "require": {
-        "piwik": ">=2.16.5"
+        "piwik": ">=3.2.1-stable,<4.0.0-b1"
     },
     "authors": [
         {

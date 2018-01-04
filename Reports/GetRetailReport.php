@@ -19,6 +19,8 @@ use Piwik\Plugins\RetailReport\Columns\Metrics\AveragePrice;
 use Piwik\Plugins\RetailReport\Columns\Metrics\AverageQuantity;
 use Piwik\Plugins\VisitsSummary\API as VisitsSummaryAPI;
 use Piwik\API\Request;
+use Piwik\Report\ReportWidgetFactory;
+use Piwik\Widget\WidgetsList;
 
 /**
  * This class defines a new report.
@@ -58,12 +60,16 @@ class GetRetailReport extends Base
         // $this->constantRowsCount = true;
 
         // If a menu title is specified, the report will be displayed in the menu
-        $this->menuTitle    = 'RetailReport_RetailReport';
+        $this->subcategoryId = 'Retailer Report';
 
-        // If a widget title is specified, the report will be displayed in the list of widgets and the report can be
-        // exported as a widget
-        $this->widgetTitle  = 'RetailReport_RetailReport';
     }
+
+    public function configureWidgets(WidgetsList $widgetsList, ReportWidgetFactory $factory)
+    {
+        $widget = $factory->createWidget()->setName('RetailReport_RetailReport');
+        $widgetsList->addWidgetConfig($widget);
+    }
+
 
     /**
      * Returns the id of the default visualization for this report. Eg 'table' or 'pie'. Defaults to the HTML table.

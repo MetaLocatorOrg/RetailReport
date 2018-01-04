@@ -11,7 +11,8 @@ namespace Piwik\Plugins\RetailReport\Reports;
 use Piwik\Piwik;
 use Piwik\Plugin\Report;
 use Piwik\Plugin\ViewDataTable;
-
+use Piwik\Report\ReportWidgetFactory;
+use Piwik\Widget\WidgetsList;
 use Piwik\View;
 
 /**
@@ -27,7 +28,7 @@ class GetActionsbyRetailer extends Base
 
         $this->name          = Piwik::translate('RetailReport_ActionsbyRetailer');
         $this->dimension     = null;
-        $this->category = 'General_Actions';
+        $this->categoryId = 'General_Actions';
         $this->documentation = Piwik::translate('The customer has requested a widget for the following actions by retailer, and by SKU or GroupID:');
 
         // This defines in which order your report appears in the mobile app, in the menu and in the list of widgets
@@ -51,11 +52,13 @@ class GetActionsbyRetailer extends Base
         // $this->constantRowsCount = true;
 
         // If a menu title is specified, the report will be displayed in the menu
-        $this->menuTitle    = 'RetailReport_ActionsbyRetailer';
+        $this->subcategoryId = 'RetailReport_ActionsbyRetailer';
+    }
 
-        // If a widget title is specified, the report will be displayed in the list of widgets and the report can be
-        // exported as a widget
-        $this->widgetTitle  = 'RetailReport_ActionsbyRetailer';
+    public function configureWidgets(WidgetsList $widgetsList, ReportWidgetFactory $factory)
+    {
+        $widget = $factory->createWidget()->setName('RetailReport_ActionsbyRetailer');
+        $widgetsList->addWidgetConfig($widget);
     }
 
     /**

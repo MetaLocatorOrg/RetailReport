@@ -4,46 +4,70 @@
  *
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ *
  */
+namespace Piwik\Plugins\RetailReport\Widgets;
 
-namespace Piwik\Plugins\RetailReport;
-
+use Piwik\Widget\Widget;
+use Piwik\Widget\WidgetConfig;
 use Piwik\View;
-use Piwik\WidgetsList;
 use Piwik\Http;
 use Piwik\Option;
 use Piwik\Date;
 
 /**
- * This class allows you to add your own widgets to the Piwik platform. In case you want to remove widgets from another
+ * This class allows you to add your own widget to the Piwik platform. In case you want to remove widgets from another
  * plugin please have a look at the "configureWidgetsList()" method.
  * To configure a widget simply call the corresponding methods as described in the API-Reference:
- * http://developer.piwik.org/api-reference/Piwik/Plugin\Widgets
+ * http://developer.piwik.org/api-reference/Piwik/Plugin\Widget
  */
-class Widgets extends \Piwik\Plugin\Widgets
+class GetLastCompletedFullArchiving extends Widget
 {
     const OPTION_ARCHIVING_FINISHED_TS = "LastCompletedFullArchiving";
-    /**
-     * Here you can define the category the widget belongs to. You can reuse any existing widget category or define
-     * your own category.
-     * @var string
-     */
-    protected $category = 'RetailReport_PiwikInfo';
-
-    /**
-     * Here you can add one or multiple widgets. You can add a widget by calling the method "addWidget()" and pass the
-     * name of the widget as well as a method name that should be called to render the widget. The method can be
-     * defined either directly here in this widget class or in the controller in case you want to reuse the same action
-     * for instance in the menu etc.
-     */
-    protected function init()
+    public static function configure(WidgetConfig $config)
     {
-         $this->addWidget('Latest Conversion Backfill', $method = 'latestConversionBackfill');
+        /**
+         * Set the category the widget belongs to. You can reuse any existing widget category or define
+         * your own category.
+         */
+        $config->setCategoryId('RetailReport_Info');
+
+        /**
+         * Set the subcategory the widget belongs to. If a subcategory is set, the widget will be shown in the UI.
+         */
+        // $config->setSubcategoryId('General_Overview');
+
+        /**
+         * Set the name of the widget belongs to.
+         */
+        $config->setName('RetailReport_LastCompletedFullArchiving');
+
+        /**
+         * Set the order of the widget. The lower the number, the earlier the widget will be listed within a category.
+         */
+        $config->setOrder(99);
+
+        /**
+         * Optionally set URL parameters that will be used when this widget is requested.
+         * $config->setParameters(array('myparam' => 'myvalue'));
+         */
+
+        /**
+         * Define whether a widget is enabled or not. For instance some widgets might not be available to every user or
+         * might depend on a setting (such as Ecommerce) of a site. In such a case you can perform any checks and then
+         * set `true` or `false`. If your widget is only available to users having super user access you can do the
+         * following:
+         *
+         * $config->setIsEnabled(\Piwik\Piwik::hasUserSuperUserAccess());
+         * or
+         * if (!\Piwik\Piwik::hasUserSuperUserAccess())
+         *     $config->disable();
+         */
     }
 
     protected function readSetting()
     {
-        $settings = new \Piwik\Plugins\RetailReport\Settings();
+        $settings = new \Piwik\Plugins\RetailReport\SystemSettings();
         $this->itemid = $settings->itemid->getValue();
         $this->apikey = $settings->apikey->getValue();
         $this->username = $settings->username->getValue();
@@ -59,7 +83,7 @@ class Widgets extends \Piwik\Plugin\Widgets
      *
      * @return string
      */
-    public function latestConversionBackfill()
+    public function render()
     {
         $view = new View('@RetailReport/latestConversionBackfill');
         $view->latestAPIUpdate = $this->getLatestAPIUpdate();
@@ -107,14 +131,4 @@ class Widgets extends \Piwik\Plugin\Widgets
         return $date;
     }
 
-    /**
-     * Here you can remove any widgets defined by any plugin.
-     *
-     * @param WidgetsList $widgetsList
-     */
-    public function configureWidgetsList(WidgetsList $widgetsList)
-    {
-        // $widgetsList->remove('NameOfWidgetCategory'); // will remove all widgets having this category
-        // $widgetsList->remove('NameOfWidgetCategory', 'Widget name'); // will only remove a specific widget
-    }
 }

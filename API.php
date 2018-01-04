@@ -60,7 +60,7 @@ class API extends \Piwik\Plugin\API
      * @param bool|string $segment
      * @return DataTable
      */
-    public function getSKUfromRetailer($idSite, $period, $date, $segment = false, $idSubtable = null)
+    public function getSKUfromRetailer($idSite, $period, $date, $segment=false, $expanded=false, $flat=false, $idSubtable = null)
     {
         $dataTable = $this->getDataTable($idSite, $period, $date, $segment, $expanded, $flat, $idSubtable);
         return $dataTable;
@@ -74,7 +74,7 @@ class API extends \Piwik\Plugin\API
      * @param bool|string $segment
      * @return DataTable
      */
-    public function getActionsbyRetailer($idSite, $period, $date, $segment = false)
+    public function getActionsbyRetailer($idSite, $period, $date, $segment=false, $expanded=false, $flat=false, $idSubtable=null)
     {
         $dataTable = Archive::createDataTableFromArchive(
             Archiver::CLICK_ACTION_EVENT_ARCHIVE_RECORD, $idSite, $period, $date, $segment, $expanded, $flat, $idSubtable=null);
@@ -90,10 +90,11 @@ class API extends \Piwik\Plugin\API
      * @param bool|string $segment
      * @return DataTable
      */
-    public function getActionsbySKURetailer($idSite, $period, $date, $segment = false, $idSubtable = null)
+    public function getActionsbySKURetailer($idSite, $period, $date, $segment = false, $expanded=false, $flat=false, $idSubtable = null)
     {
         $dataTable = Archive::createDataTableFromArchive(
             Archiver::CLICK_ACTION_EVENT_ARCHIVE_RECORD, $idSite, $period, $date, $segment, $expanded, $flat, $idSubtable);
         return $dataTable;
     }
+
 }
