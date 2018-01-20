@@ -15,6 +15,7 @@
         "SendToSMS": "Send to SMS",
         "TestingReport": "TestingReport",
         "Info": "Info",
-        "LastCompletedFullArchiving": "Last Completed Full Archiving"
+        "LastCompletedFullArchiving": "Last Completed Full Archiving",
+        "UniqueActions": "Unique Actions"
     }
 }
