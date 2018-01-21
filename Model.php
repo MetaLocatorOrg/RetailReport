@@ -8,6 +8,25 @@ use Piwik\Date;
 
 class Model
 {
+    public function getActionList()
+    {
+        $db = $this->getDb();
+        $resultSet = $db->query(
+            "SELECT * FROM " 
+            . Common::prefixTable('log_action') . "
+            where type=11 and
+                idaction in
+            (13345557,18107917,161,5805100,17,15350502,13140307,43,5885831,13147780,115,12716008,13139640)
+            ");
+        $actions = [];
+        while ($row = $resultSet->fetch()) {
+            $actions[] = array(
+                'name' => $row['name'],
+                'value' => $row['idaction']
+            );
+        }
+        return $actions;
+    }
 
     public function getUniqueActionByAction($event_action_id, $dateStart, $dateEnd)
     {

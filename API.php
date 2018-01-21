@@ -98,7 +98,6 @@ class API extends \Piwik\Plugin\API
         return $dataTable;
     }
 
-
     /**
      * Another example method that returns a data table.
      * @param int    $idSite
@@ -107,7 +106,7 @@ class API extends \Piwik\Plugin\API
      * @param bool|string $segment
      * @return DataTable
      */
-    public function getUniqueActions($idSite, $period, $date, $segment = false)
+    public function getUniqueActions($idSite, $period, $date, $segment = false, $unique_action_id = false)
     {
         $table = new DataTable();
         $p = \Piwik\Period\Factory::build($period, $date);
@@ -115,7 +114,19 @@ class API extends \Piwik\Plugin\API
         $dateStart = $p->getDateTimeStart();
         $dateEnd = $p->getDateTimeEnd();
         $model = new Model();
-        $actions = $model->getUniqueActionByAction(43, $dateStart, $dateEnd);
+        if (!$unique_action_id) {
+          $unique_action_id = 43;
+        }
+        $actions = $model->getUniqueActionByAction($unique_action_id, $dateStart, $dateEnd);
+        /*
+        $actions = array();
+        $actions[] = array(
+            'uniq_action_visits' => $unique_action_id,
+            'action_visits' => 1,
+            'unique_actions_regions' => 1,
+            'region_name' => 1
+        );
+         */
         $table = DataTable::makeFromSimpleArray($actions);
         return $table;
     }

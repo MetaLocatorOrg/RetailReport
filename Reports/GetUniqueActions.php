@@ -9,9 +9,11 @@
 namespace Piwik\Plugins\RetailReport\Reports;
 
 use Piwik\Piwik;
+use Piwik\Common;
 use Piwik\Plugin\Report;
 use Piwik\Plugin\ViewDataTable;
 
+use Piwik\Plugins\RetailReport\Model;
 use Piwik\View;
 
 /**
@@ -66,6 +68,34 @@ class GetUniqueActions extends Base
         // $view->requestConfig->filter_limit = 10';
 
         $view->config->columns_to_display = array_merge($this->metrics);
+        $view->config->datatable_js_type   = 'RetailerUniqueAction';
+        $view->config->datatable_css_class = 'RetailerUniqueAction';
+
+        $action_list_view = new View('@RetailReport/action_list');
+        
+        $model = new Model();
+        $action_list = $model->getActionList();
+       
+        /*
+        $action_list = array(
+            array('value'=> 43, 'name'=>'Total Search'),
+            array('value' => 115, 'name' =>  'Keywork Search') 
+        );
+         */
+        $new_action_list = array();
+        $current_unique_action_id = Common::getRequestVar('unique_action_id', 43, 'int');
+        $view->requestConfig->request_parameters_to_modify['unique_action_id'] = $current_unique_action_id;
+        foreach ($action_list as $action) {
+            if ($action['value'] == $current_unique_action_id) {
+                $action['selected'] = 'selected';
+            } else {
+                $action['selected'] = '';
+            }
+                $new_action_list[] = $action;
+        }
+        $action_list_view->action_list = $new_action_list;
+
+        $view->config->show_footer_message = $action_list_view->render();
     }
 
     /**
