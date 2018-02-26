@@ -66,16 +66,6 @@ class GetRetailReport extends Base
     }
 
     /**
-     * Returns the id of the default visualization for this report. Eg 'table' or 'pie'. Defaults to the HTML table.
-     * @return string
-     * @api
-     */
-    public function getDefaultTypeViewDataTable()
-    {
-        return 'retailer_table';
-    }
-
-    /**
      * Here you can configure how your report should be displayed. For instance whether your report supports a search
      * etc. You can also change the default request config. For instance change how many rows are displayed by default.
      *
