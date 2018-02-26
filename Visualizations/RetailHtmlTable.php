@@ -21,7 +21,7 @@ use Piwik\View;
  */
 class RetailHtmlTable extends Visualization
 {
-    const ID = 'retail_table';
+    const ID = 'retailer_table';
     const TEMPLATE_FILE     = "@RetailReport/_RetaildataTableViz_htmlTable.twig";
     const FOOTER_ICON       = 'plugins/Morpheus/images/table.png';
     const FOOTER_ICON_TITLE = 'Flat Product Report';
@@ -63,6 +63,7 @@ class RetailHtmlTable extends Visualization
 
             $this->config->show_visualization_only = true;
         }
+        $this->config->show_flatten_table = false;
 
         // we do not want to get a datatable\map
         $period = Common::getRequestVar('period', 'day', 'string');

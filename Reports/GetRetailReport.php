@@ -159,8 +159,18 @@ class GetRetailReport extends Base
         // $view->config->show_search = false;
         // $view->requestConfig->filter_sort_column = 'nb_visits';
         // $view->requestConfig->filter_limit = 10';
-
+        $view->config->show_table_all_columns = false;
+        $view->config->show_insights = false;
+        $view->config->show_active_view_icon = false;
+        $view->config->show_related_reports = false;
+        $view->config->show_pivot_by_subtable = false;
+        $view->config->show_flatten_table = false;
+        $view->config->show_bar_chart = false;
+        $view->config->show_pie_chart = false;
+        $view->config->show_tag_cloud = false;
+        
         $view->config->columns_to_display = array_merge(array('label'), $this->metrics);
+
     }
 
     /**
