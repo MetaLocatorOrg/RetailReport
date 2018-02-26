@@ -113,7 +113,7 @@ class Archiver extends \Piwik\Plugin\Archiver
     protected function aggregateFromConversions()
     {
         $select = "
-            log_conversion.retailer_name,
+            log_conversion_alias.retailer_name,
             log_action_sku.name AS sku,
             log_action_product_name.name product_name,
             sum(quantity) as quantity,
@@ -135,7 +135,7 @@ class Archiver extends \Piwik\Plugin\Archiver
             ),
             array(
                 "table"      => "log_conversion",
-                "joinOn"     => "log_conversion_item.idorder = log_conversion.idorder"
+                "joinOn"     => "log_conversion_item.idorder = log_conversion_alias.idorder"
             )
         );
 
@@ -144,7 +144,7 @@ class Archiver extends \Piwik\Plugin\Archiver
                     AND log_conversion_item.idsite = ?
                     AND log_conversion_item.deleted = 0";
 
-        $groupBy = "log_action_sku.name, log_conversion.retailer_name, log_conversion_item.idorder";
+        $groupBy = "log_action_sku.name, log_conversion_alias.retailer_name, log_conversion_item.idorder";
 
         $orderBy = false;
         
