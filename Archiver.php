@@ -168,7 +168,7 @@ class Archiver extends \Piwik\Plugin\Archiver
         $sql = sprintf('SELECT idaction FROM %s WHERE name=? and type=? limit 1', Common::prefixTable('log_action'));
         $result = \Piwik\Db::fetchOne($sql, array($actionName, $actionType));
         if (!$result) {
-            return -1;
+            return 0;
         }
         return $result;
     }
@@ -184,7 +184,7 @@ class Archiver extends \Piwik\Plugin\Archiver
         $click_event_action_id = $this->getIdFromActionName('Click', Action::TYPE_EVENT_ACTION);
         $send_to_sms_event_name_id = $this->getIdFromActionName('SendTo-SMS', Action::TYPE_EVENT_NAME);
         $location_product_event_name_id = $this->getIdFromActionName('Location-Product', Action::TYPE_EVENT_NAME);
-        $get_directions_event_name_id = $this->getIdFromActionName('GetDirections', Action::TYPE_EVENT_NAME);
+        $get_directions_event_action_id = $this->getIdFromActionName('GetDirections', Action::TYPE_EVENT_ACTION);
         $click_to_call_event_action_id = $this->getIdFromActionName('Click To Call', Action::TYPE_EVENT_ACTION);
         $select = "
               custom_dimension_3 AS retailer_name,
@@ -199,7 +199,7 @@ class Archiver extends \Piwik\Plugin\Archiver
               END
             ) AS LocationProduct,
             SUM(
-                CASE WHEN idaction_event_action = $click_event_action_id and idaction_name = $get_directions_event_name_id THEN 1 ELSE 0
+                CASE WHEN idaction_event_action = $get_directions_event_action_id THEN 1 ELSE 0
               END
             ) AS GetDirections,
             SUM(
