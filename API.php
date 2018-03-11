@@ -96,4 +96,38 @@ class API extends \Piwik\Plugin\API
             Archiver::CLICK_ACTION_EVENT_ARCHIVE_RECORD, $idSite, $period, $date, $segment, $expanded, $flat, $idSubtable);
         return $dataTable;
     }
+    private function getModel()
+    {
+        return new Model();
+    }
+
+    public function updateProductName($oldProductName, $newProductName)
+    {
+        $model = $this->getModel();
+        $idActions = $model->getIdActions($oldProductName, $newProductName);
+        $oldLogActionId = $idActions[0];
+        $newLogActionId = $idActions[1];
+        $conversion_items = $model->getConversionItemName($oldLogActionId);
+        $invalidData = array();
+        foreach ($conversion_items as $item) {
+            if (!array_key_exists($item['idsite'], $invalidData)) {
+                $invalidData[$item['idsite']] = [];
+            }
+            $server_time = substr($item['server_time'], 0, 10);
+            $invalidData[$item['idsite']][$server_time] = 1;
+        }
+        $result = $model->updateConversionItemName($oldLogActionId, $newLogActionId);
+
+        foreach ($invalidData as $siteId => $date_arrays) {
+            $dates = array_keys($date_arrays);
+            Request::processRequest('CoreAdminHome.invalidateArchivedReports', [
+                'format'  => 'json',
+                'idSites' => $siteId,
+                'period'  => false,
+                'dates'   => implode(',', $dates),
+            ]);
+
+        }
+        return $result;
+    }
 }

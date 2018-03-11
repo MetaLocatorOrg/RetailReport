@@ -135,6 +135,7 @@ class Archiver extends \Piwik\Plugin\Archiver
             ),
             array(
                 "table"      => "log_conversion",
+                "tableAlias" => "log_conversion_alias",
                 "joinOn"     => "log_conversion_item.idorder = log_conversion_alias.idorder"
             )
         );
