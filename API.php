@@ -12,6 +12,8 @@ use Piwik\DataTable;
 use Piwik\Archive;
 use Piwik\API\Request;
 use Piwik\DataTable\Row;
+use Piwik\Site;
+use Piwik\Date;
 
 /**
  * API for plugin RetailReport
@@ -110,11 +112,13 @@ class API extends \Piwik\Plugin\API
         $conversion_items = $model->getConversionItemName($oldLogActionId);
         $invalidData = array();
         foreach ($conversion_items as $item) {
-            if (!array_key_exists($item['idsite'], $invalidData)) {
-                $invalidData[$item['idsite']] = [];
+            $idSite = (int)$item['idsite'];
+            if (!array_key_exists($idSite, $invalidData)) {
+                $invalidData[$idSite] = [];
             }
-            $server_time = substr($item['server_time'], 0, 10);
-            $invalidData[$item['idsite']][$server_time] = 1;
+            $timezone = Site::getTimezoneFor($idSite);
+            $server_time = Date::factory($item['server_time'], $timezone)->toString('Y-m-d');
+            $invalidData[$idSite][$server_time] = 1;
         }
         $result = $model->updateConversionItemName($oldLogActionId, $newLogActionId);
 

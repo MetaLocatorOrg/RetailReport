@@ -167,6 +167,9 @@ class Archiver extends \Piwik\Plugin\Archiver
     {
         $sql = sprintf('SELECT idaction FROM %s WHERE name=? and type=? limit 1', Common::prefixTable('log_action'));
         $result = \Piwik\Db::fetchOne($sql, array($actionName, $actionType));
+        if (!$result) {
+            return -1;
+        }
         return $result;
     }
 
