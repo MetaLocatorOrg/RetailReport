@@ -32,7 +32,7 @@ class Retailer extends ConversionDimension
      * This will be the name of the column in the log_conversion table if a $columnType is specified.
      * @var string
      */
-    protected $columnName = 'retailer_name';
+    protected $columnName = 'locale';
 
     /**
      * If a columnType is defined, we will create this a column in the MySQL table having this type. Please make sure
@@ -48,7 +48,7 @@ class Retailer extends ConversionDimension
      */
     public function getName()
     {
-        return Piwik::translate('RetailReport_Retailer');
+        return Piwik::translate('RetailReport_Locale');
     }
 
     /**
@@ -59,10 +59,10 @@ class Retailer extends ConversionDimension
     protected function configureSegments()
     {
         $segment = new Segment();
-        $segment->setSegment('retailerSegment');
+        $segment->setSegment('localeSegment');
         $segment->setCategory('General_Visit');
         $segment->setName('RetailReport_Retailer');
-        $segment->setAcceptedValues('Accept text as name of retailer');
+        $segment->setAcceptedValues('Accept text of locale');
         $this->addSegment($segment);
     }
 
@@ -81,7 +81,7 @@ class Retailer extends ConversionDimension
      */
     public function onEcommerceOrderConversion(Request $request, Visitor $visitor, $action, GoalManager $goalManager)
     {
-        return Common::getRequestVar('retailerName', $default = '', 'string', $request->getParams());
+        return Common::getRequestVar('locale', $default = '', 'string', $request->getParams());
     }
 
     /**
@@ -120,3 +120,4 @@ class Retailer extends ConversionDimension
     }
 
 }
+
