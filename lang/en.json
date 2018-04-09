@@ -16,6 +16,7 @@
         "TestingReport": "TestingReport",
         "Info": "Info",
         "LastCompletedFullArchiving": "Last Completed Full Archiving",
-        "UniqueActions": "Unique Actions"
+        "UniqueActions": "Unique Actions",
+        "Locale": "Locale"
     }
 }
