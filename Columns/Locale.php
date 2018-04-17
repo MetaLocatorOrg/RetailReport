@@ -26,7 +26,7 @@ use Piwik\Tracker\GoalManager;
  *
  * See {@link http://developer.piwik.org/api-reference/Piwik/Plugin\Dimension\ConversionDimension} for more information.
  */
-class Retailer extends ConversionDimension
+class Locale extends ConversionDimension
 {
     /**
      * This will be the name of the column in the log_conversion table if a $columnType is specified.
@@ -61,7 +61,7 @@ class Retailer extends ConversionDimension
         $segment = new Segment();
         $segment->setSegment('localeSegment');
         $segment->setCategory('General_Visit');
-        $segment->setName('RetailReport_Retailer');
+        $segment->setName('RetailReport_Locale');
         $segment->setAcceptedValues('Accept text of locale');
         $this->addSegment($segment);
     }
