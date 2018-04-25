@@ -111,6 +111,7 @@ class API extends \Piwik\Plugin\API
         $table = new DataTable();
         $p = \Piwik\Period\Factory::build($period, $date);
 
+        $actions = [];
         if ($idSite == 1228) {
             $dateStart = $p->getDateTimeStart();
             $dateEnd = $p->getDateTimeEnd();
@@ -119,14 +120,6 @@ class API extends \Piwik\Plugin\API
               $unique_action_id = 43;
             }
             $actions = $model->getUniqueActionByAction($unique_action_id, $dateStart, $dateEnd);
-        else {
-            $actions = array();
-            $actions[] = array(
-                'uniq_action_visits' => 0,
-                'action_visits' => 1,
-                'unique_actions_regions' => 1,
-                'region_name' => 1
-            );
         }
         $table = DataTable::makeFromSimpleArray($actions);
         return $table;
