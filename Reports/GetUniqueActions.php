@@ -28,6 +28,7 @@ class GetUniqueActions extends Base
         parent::init();
 
         $this->name          = Piwik::translate('RetailReport_UniqueActions');
+        $this->categoryId = 'General_Actions';
         $this->dimension     = null;
         $this->documentation = Piwik::translate('');
 

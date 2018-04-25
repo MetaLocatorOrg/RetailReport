@@ -28,7 +28,7 @@ class GetActionsbyRetailer extends Base
 
         $this->name          = Piwik::translate('RetailReport_ActionsbyRetailer');
         $this->dimension     = null;
-        $this->categoryId = 'General_Actions';
+        $this->categoryId = 'Goals_Ecommerce';
         $this->documentation = Piwik::translate('The customer has requested a widget for the following actions by retailer, and by SKU or GroupID:');
 
         // This defines in which order your report appears in the mobile app, in the menu and in the list of widgets
