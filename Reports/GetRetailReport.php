@@ -21,6 +21,7 @@ use Piwik\Plugins\VisitsSummary\API as VisitsSummaryAPI;
 use Piwik\API\Request;
 use Piwik\Report\ReportWidgetFactory;
 use Piwik\Widget\WidgetsList;
+use Piwik\Plugins\RetailReport\Visualizations\RetailHtmlTable;
 
 /**
  * This class defines a new report.
@@ -36,6 +37,8 @@ class GetRetailReport extends Base
         $this->name          = Piwik::translate('RetailReport_RetailReport');
         $this->dimension     = new Retailer();
         $this->documentation = Piwik::translate('');
+        $this->supportsFlatten = true;
+
 
         // This defines in which order your report appears in the mobile app, in the menu and in the list of widgets
         $this->order = 1;
@@ -78,7 +81,7 @@ class GetRetailReport extends Base
      */
     public function getDefaultTypeViewDataTable()
     {
-        return 'retailer_table';
+        return RetailHtmlTable::ID;
     }
 
     /**

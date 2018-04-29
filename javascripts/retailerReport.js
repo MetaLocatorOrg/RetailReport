@@ -34,6 +34,7 @@ $(document).ready(function () {
       _init: function (domElem) {
           var self = this;
           //dataTablePrototype.init.call(this);
+          // This change unique action
           domElem.find('.action_list_select').on('change', function() {
               self.param.unique_action_id = Number(this.value);
               self.reloadAjaxDataTable();
