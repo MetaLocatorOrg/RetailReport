@@ -21,7 +21,7 @@ use Piwik\View;
  */
 class RetailHtmlTable extends Visualization
 {
-    const ID = 'retailer_table';
+    const ID = 'retail_table';
     const TEMPLATE_FILE     = "@RetailReport/_RetaildataTableViz_htmlTable.twig";
     const FOOTER_ICON       = 'plugins/Morpheus/images/table.png';
     const FOOTER_ICON_TITLE = 'Flat Product Report';
