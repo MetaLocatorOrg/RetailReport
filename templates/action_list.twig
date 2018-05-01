@@ -1,0 +1,6 @@
+<select class="action_list_select" style="display: block">
+  {% for action in action_list %} 
+    <option value="{{action.value}}" {{action.selected}}> {{action.name}}</option>
+  {% endfor %}
+</select>
+

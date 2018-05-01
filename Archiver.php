@@ -88,7 +88,7 @@ class Archiver extends \Piwik\Plugin\Archiver
             $maximumRowsInDataTableLevelZero = null,
             $maximumRowsInSubDataTable = null,
             $columnToSortByBeforeTruncation = null,
-            $columnsAggregationOperation = $columnsAggregationOperation,
+            $columnsAggregationOperation,
             $columnsToRenameAfterAggregation = null,
             $countRowsRecursive = array());
 
@@ -105,7 +105,7 @@ class Archiver extends \Piwik\Plugin\Archiver
             $maximumRowsInDataTableLevelZero = null,
             $maximumRowsInSubDataTable = null,
             $columnToSortByBeforeTruncation = null,
-            $columnsAggregationOperation = $columnsAggregationOperation,
+            $columnsAggregationOperation,
             $columnsToRenameAfterAggregation = null,
             $countRowsRecursive = array());
     }
@@ -167,10 +167,12 @@ class Archiver extends \Piwik\Plugin\Archiver
     {
         $sql = sprintf('SELECT idaction FROM %s WHERE name=? and type=? limit 1', Common::prefixTable('log_action'));
         $result = \Piwik\Db::fetchOne($sql, array($actionName, $actionType));
-        if (!$result) {
+        if ($result)
+        {
+            return $result;
+        } else {
             return 0;
         }
-        return $result;
     }
 
     /**

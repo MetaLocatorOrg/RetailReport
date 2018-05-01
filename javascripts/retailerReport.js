@@ -6,3 +6,40 @@ $(document).ready(function () {
     $(product_name_col).hide();
   }
 });
+
+(function ($, require) {
+
+  var exports = require('piwik/UI'),
+      DataTable = exports.DataTable,
+      dataTablePrototype = DataTable.prototype;
+
+   var UIControl = exports.UIControl;
+
+   function getValueFromEvent(event)
+   {
+       return event.target.value ? event.target.value : $(event.target).attr('value');
+   }
+
+  /**
+   * UI control that handles extra functionality for Actions datatables.
+   *
+   * @constructor
+   */
+  exports.RetailerUniqueAction = function (element) {
+      DataTable.call(this, element);
+  };
+
+  $.extend(exports.RetailerUniqueAction.prototype, dataTablePrototype, {
+
+      _init: function (domElem) {
+          var self = this;
+          //dataTablePrototype.init.call(this);
+          // This change unique action
+          domElem.find('.action_list_select').on('change', function() {
+              self.param.unique_action_id = Number(this.value);
+              self.reloadAjaxDataTable();
+          });
+      }
+  });
+
+})(jQuery, require);

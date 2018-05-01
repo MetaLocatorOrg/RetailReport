@@ -14,6 +14,7 @@ use Piwik\API\Request;
 use Piwik\DataTable\Row;
 use Piwik\Site;
 use Piwik\Date;
+use Piwik\Period;
 
 /**
  * API for plugin RetailReport
@@ -62,7 +63,7 @@ class API extends \Piwik\Plugin\API
      * @param bool|string $segment
      * @return DataTable
      */
-    public function getSKUfromRetailer($idSite, $period, $date, $segment = false, $idSubtable = null)
+    public function getSKUfromRetailer($idSite, $period, $date, $segment=false, $expanded=false, $flat=false, $idSubtable = null)
     {
         $dataTable = $this->getDataTable($idSite, $period, $date, $segment, $expanded, $flat, $idSubtable);
         return $dataTable;
@@ -76,7 +77,7 @@ class API extends \Piwik\Plugin\API
      * @param bool|string $segment
      * @return DataTable
      */
-    public function getActionsbyRetailer($idSite, $period, $date, $segment = false)
+    public function getActionsbyRetailer($idSite, $period, $date, $segment=false, $expanded=false, $flat=false, $idSubtable=null)
     {
         $dataTable = Archive::createDataTableFromArchive(
             Archiver::CLICK_ACTION_EVENT_ARCHIVE_RECORD, $idSite, $period, $date, $segment, $expanded, $flat, $idSubtable=null);
@@ -92,12 +93,13 @@ class API extends \Piwik\Plugin\API
      * @param bool|string $segment
      * @return DataTable
      */
-    public function getActionsbySKURetailer($idSite, $period, $date, $segment = false, $idSubtable = null)
+    public function getActionsbySKURetailer($idSite, $period, $date, $segment = false, $expanded=false, $flat=false, $idSubtable = null)
     {
         $dataTable = Archive::createDataTableFromArchive(
             Archiver::CLICK_ACTION_EVENT_ARCHIVE_RECORD, $idSite, $period, $date, $segment, $expanded, $flat, $idSubtable);
         return $dataTable;
     }
+
     private function getModel()
     {
         return new Model();
@@ -134,4 +136,32 @@ class API extends \Piwik\Plugin\API
         }
         return $result;
     }
+
+    /**
+     * Another example method that returns a data table.
+     * @param int    $idSite
+     * @param string $period
+     * @param string $date
+     * @param bool|string $segment
+     * @return DataTable
+     */
+    public function getUniqueActions($idSite, $period, $date, $segment = false, $unique_action_id = false)
+    {
+        $table = new DataTable();
+        $p = \Piwik\Period\Factory::build($period, $date);
+
+        $actions = [];
+        if ($idSite == 1228) {
+            $dateStart = $p->getDateTimeStart();
+            $dateEnd = $p->getDateTimeEnd();
+            $model = new Model();
+            if (!$unique_action_id) {
+              $unique_action_id = 43;
+            }
+            $actions = $model->getUniqueActionByAction($unique_action_id, $dateStart, $dateEnd);
+        }
+        $table = DataTable::makeFromSimpleArray($actions);
+        return $table;
+    }
+
 }

@@ -16,7 +16,7 @@ class ClickActionDataArray extends \Piwik\DataArray
     public function sumMetricsClickAction($label, $row)
     {
         if (!isset($this->data[$label])) {
-            $this->data[$label] = static::makeEmptyClickActionRow($idGoal);
+            $this->data[$label] = static::makeEmptyClickActionRow();
         }
         $row['product_name'] = '';
         $this->doSumClickActionMetrics($row, $this->data[$label]);
