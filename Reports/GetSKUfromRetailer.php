@@ -17,7 +17,8 @@ use Piwik\Plugins\RetailReport\Columns\Metrics\AveragePrice;
 use Piwik\Plugins\RetailReport\Columns\Metrics\AverageQuantity;
 use Piwik\Plugins\VisitsSummary\API as VisitsSummaryAPI;
 use Piwik\API\Request;
-
+use Piwik\Report\ReportWidgetFactory;
+use Piwik\Widget\WidgetsList;
 use Piwik\View;
 
 /**

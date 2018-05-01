@@ -23,7 +23,7 @@ class Config extends VisualizationConfig
      *
      * Default value: false
      */
-    public $show_embedded_subtable = false;
+    public $show_embedded_subtable = true;
 
     /**
      * Controls whether the entire DataTable should be rendered (including subtables) or just one
@@ -31,7 +31,7 @@ class Config extends VisualizationConfig
      *
      * Default value: false
      */
-    public $show_expanded = false;
+    public $show_expanded = true;
 
     /**
      * When showing an expanded datatable, this property controls whether rows with subtables are

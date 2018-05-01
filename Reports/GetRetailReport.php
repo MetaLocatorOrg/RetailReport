@@ -19,6 +19,9 @@ use Piwik\Plugins\RetailReport\Columns\Metrics\AveragePrice;
 use Piwik\Plugins\RetailReport\Columns\Metrics\AverageQuantity;
 use Piwik\Plugins\VisitsSummary\API as VisitsSummaryAPI;
 use Piwik\API\Request;
+use Piwik\Report\ReportWidgetFactory;
+use Piwik\Widget\WidgetsList;
+use Piwik\Plugins\RetailReport\Visualizations\RetailHtmlTable;
 
 /**
  * This class defines a new report.
@@ -34,6 +37,8 @@ class GetRetailReport extends Base
         $this->name          = Piwik::translate('RetailReport_RetailReport');
         $this->dimension     = new Retailer();
         $this->documentation = Piwik::translate('');
+        $this->supportsFlatten = true;
+
 
         // This defines in which order your report appears in the mobile app, in the menu and in the list of widgets
         $this->order = 1;
@@ -58,11 +63,25 @@ class GetRetailReport extends Base
         // $this->constantRowsCount = true;
 
         // If a menu title is specified, the report will be displayed in the menu
-        $this->menuTitle    = 'RetailReport_RetailReport';
+        $this->subcategoryId = 'Retailer Report';
 
-        // If a widget title is specified, the report will be displayed in the list of widgets and the report can be
-        // exported as a widget
-        $this->widgetTitle  = 'RetailReport_RetailReport';
+    }
+
+    public function configureWidgets(WidgetsList $widgetsList, ReportWidgetFactory $factory)
+    {
+        $widget = $factory->createWidget()->setName('RetailReport_RetailReport');
+        $widgetsList->addWidgetConfig($widget);
+    }
+
+
+    /**
+     * Returns the id of the default visualization for this report. Eg 'table' or 'pie'. Defaults to the HTML table.
+     * @return string
+     * @api
+     */
+    public function getDefaultTypeViewDataTable()
+    {
+        return RetailHtmlTable::ID;
     }
 
     /**
