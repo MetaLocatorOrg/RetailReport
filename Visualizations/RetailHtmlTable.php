@@ -78,7 +78,7 @@ class RetailHtmlTable extends Visualization
                 'module' => 'API',
                 'action' => 'get',
                 'format' => 'original',
-                'filter_limit'  => '-1',
+                'filter_limit'  => '25',
                 'disable_generic_filters' => 1,
                 'expanded'      => 1,
                 'flat'          => 1,
