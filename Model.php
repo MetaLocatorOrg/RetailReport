@@ -63,6 +63,7 @@ class Model
             return false;
         }
         return true;
+    }
 
     public function getActionList()
     {
