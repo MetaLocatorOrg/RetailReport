@@ -63,7 +63,7 @@ class RetailHtmlTable extends Visualization
 
             $this->config->show_visualization_only = true;
         }
-        $this->config->show_flatten_table = false;
+        //$this->config->show_flatten_table = false;
 
         // we do not want to get a datatable\map
         $period = Common::getRequestVar('period', 'day', 'string');
