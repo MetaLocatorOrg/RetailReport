@@ -16,7 +16,7 @@ class RetailDataArray extends \Piwik\DataArray
     public function sumMetricsRetail($label, $row)
     {
         if (!isset($this->data[$label])) {
-            $this->data[$label] = static::makeEmptyRetailRow($idGoal);
+            $this->data[$label] = static::makeEmptyRetailRow();
         }
         $row['product_name'] = '';
         $this->doSumRetailMetrics($row, $this->data[$label]);
