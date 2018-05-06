@@ -81,7 +81,8 @@ class Archiver extends \Piwik\Plugin\Archiver
         $columnsAggregationOperation = array(
             'quantity' => 'sum',
             'revenue' => 'sum',
-            'unique_purchase' => 'sum'
+            'unique_purchase' => 'sum',
+            'product_name' => 'uniquearraymerge'
         );
         $results = $this->getProcessor()->aggregateDataTableRecords(
             $dataTableRecords,
