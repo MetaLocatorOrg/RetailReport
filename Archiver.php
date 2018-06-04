@@ -190,8 +190,8 @@ class Archiver extends \Piwik\Plugin\Archiver
         $get_directions_event_action_id = $this->getIdFromActionName('GetDirections', Action::TYPE_EVENT_ACTION);
         $click_to_call_event_action_id = $this->getIdFromActionName('Click To Call', Action::TYPE_EVENT_ACTION);
         $select = "
-              custom_dimension_3 AS retailer_name,
-              custom_dimension_4 AS sku,
+              log_link_visit_action.custom_dimension_3 AS retailer_name,
+              log_link_visit_action.custom_dimension_4 AS sku,
               SUM(
                 CASE WHEN idaction_event_action = $click_event_action_id and idaction_name = $send_to_sms_event_name_id THEN 1 ELSE 0
               END
@@ -219,7 +219,7 @@ class Archiver extends \Piwik\Plugin\Archiver
                     AND log_link_visit_action.server_time <= ?
                     AND log_link_visit_action.idsite = ?";
 
-        $groupBy = "custom_dimension_3, custom_dimension_4";
+        $groupBy = "log_link_visit_action.custom_dimension_3, log_link_visit_action.custom_dimension_4";
 
         $orderBy = false;
 
