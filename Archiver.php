@@ -46,7 +46,8 @@ class Archiver extends \Piwik\Plugin\Archiver
     {
         $this->array = new RetailDataArray();
         $this->click_action_array = new ClickActionDataArray();
-        $this->aggregateFromConversions();
+        $this->aggregateRetailFromConversions();
+        $this->aggregateRetailSKUFromConversions();
         $this->aggregateClickActionEvent();
         $this->insertDayReports();
     }
@@ -111,7 +112,7 @@ class Archiver extends \Piwik\Plugin\Archiver
             $countRowsRecursive = array());
     }
 
-    protected function aggregateFromConversions()
+    protected function aggregateRetailSKUFromConversions()
     {
         $select = "
             log_conversion_alias.retailer_name,
@@ -159,8 +160,51 @@ class Archiver extends \Piwik\Plugin\Archiver
         }
 
         while ($row = $resultSet->fetch()) {
-            $this->array->sumMetricsRetail($row['retailer_name'], $row);
             $this->array->sumMetricsRetailPivot($row['retailer_name'], $row['sku'], $row);
+        }
+    }
+
+    protected function aggregateRetailFromConversions()
+    {
+        $select = "
+            log_conversion_alias.retailer_name,
+            log_action_product_name.name product_name,
+            sum(quantity) as quantity,
+            quantity * price as revenue,
+            count(DISTINCT log_conversion_item.idorder) as unique_purchase
+        ";
+
+        $from = array(
+            "log_conversion_item",
+            array(
+                "table" => "log_action",
+                "tableAlias" => "log_action_product_name",
+                "joinOn" => sprintf("log_conversion_item.idaction_name = log_action_product_name.idaction")
+            ),
+            array(
+                "table"      => "log_conversion",
+                "tableAlias" => "log_conversion_alias",
+                "joinOn"     => "log_conversion_item.idorder = log_conversion_alias.idorder"
+            )
+        );
+
+        $where = "log_conversion_item.server_time >= ?
+                    AND log_conversion_item.server_time <= ?
+                    AND log_conversion_item.idsite = ?
+                    AND log_conversion_item.deleted = 0";
+
+        $groupBy = "log_conversion_alias.retailer_name";
+
+        $orderBy = false;
+        $query = $this->getLogAggregator()->generateQuery($select, $from, $where, $groupBy, $orderBy);
+        $resultSet = $this->getLogAggregator()->getDb()->query($query['sql'], $query['bind']);
+
+        if ($resultSet === false) {
+            return;
+        }
+
+        while ($row = $resultSet->fetch()) {
+            $this->array->sumMetricsRetail($row['retailer_name'], $row);
         }
     }
 
