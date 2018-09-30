@@ -83,7 +83,13 @@ class Archiver extends \Piwik\Plugin\Archiver
             'quantity' => 'sum',
             'revenue' => 'sum',
             'unique_purchase' => 'sum',
-            'product_name' => 'uniquearraymerge'
+            'product_name' => 'uniquearraymerge',
+            'campaign_name' => 'uniquearraymerge',
+            'campaign_content' => 'uniquearraymerge',
+            'campaign_keyword' => 'uniquearraymerge',
+            'campaign_medium' => 'uniquearraymerge',
+            'campaign_source' => 'uniquearraymerge',
+
         );
         $results = $this->getProcessor()->aggregateDataTableRecords(
             $dataTableRecords,
@@ -120,7 +126,12 @@ class Archiver extends \Piwik\Plugin\Archiver
             log_action_product_name.name product_name,
             sum(quantity) as quantity,
             quantity * price as revenue,
-            count(DISTINCT log_conversion_item.idorder) as unique_purchase
+            count(DISTINCT log_conversion_item.idorder) as unique_purchase,
+            log_visit.campaign_name as campaign_name,
+            log_visit.campaign_content as campaign_content,
+            log_visit.campaign_keyword as campaign_keyword,
+            log_visit.campaign_medium as campaign_medium,
+            log_visit.campaign_source as campaign_source
         ";
 
         $from = array(
@@ -139,7 +150,12 @@ class Archiver extends \Piwik\Plugin\Archiver
                 "table"      => "log_conversion",
                 "tableAlias" => "log_conversion_alias",
                 "joinOn"     => "log_conversion_item.idorder = log_conversion_alias.idorder"
-            )
+            ),
+            array(
+                "table" => "log_visit",
+                "tableAlias" => "log_visit",
+                "joinOn" => sprintf("log_visit.idvisit = log_coversion.idvisit")
+            ),
         );
 
         $where = "log_conversion_item.server_time >= ?
@@ -147,7 +163,7 @@ class Archiver extends \Piwik\Plugin\Archiver
                     AND log_conversion_item.idsite = ?
                     AND log_conversion_item.deleted = 0";
 
-        $groupBy = "log_action_sku.name, log_conversion_alias.retailer_name, log_conversion_item.idorder";
+        $groupBy = "log_action_sku.name, log_conversion_alias.retailer_name, log_conversion_item.idorder, log_visit.campaign_name, log_visit.campaign_content, log_visit.campaign_keyword, log_visit.campaign_medium, log_visit.campaign_source ";
 
         $orderBy = false;
         

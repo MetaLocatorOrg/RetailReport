@@ -10,6 +10,11 @@ class RetailDataArray extends \Piwik\DataArray
         $oldRowToUpdate['revenue'] += $newRowToAdd['revenue'];
         $oldRowToUpdate['unique_purchase'] += $newRowToAdd['unique_purchase'];
         $oldRowToUpdate['product_name'] = $newRowToAdd['product_name'];
+        $oldRowToUpdate['campaign_name'] = $newRowToAdd['campaign_name'];
+        $oldRowToUpdate['campaign_content'] = $newRowToAdd['campaign_content'];
+        $oldRowToUpdate['campaign_keyword'] = $newRowToAdd['campaign_keyword'];
+        $oldRowToUpdate['campaign_medium'] = $newRowToAdd['campaign_medium'];
+        $oldRowToUpdate['campaign_source'] = $newRowToAdd['campaign_source'];
         return;
     }
 
@@ -34,6 +39,11 @@ class RetailDataArray extends \Piwik\DataArray
     {
         return array(
             'product_name'    => '',
+            'campaign_name' => '',
+            'campaign_content' => '',
+            'campaign_keyword' => '',
+            'campaign_medium' => '',
+            'campaign_source' => '',
             'quantity'        => 0,
             'revenue'         => 0,
             'unique_purchase' => 0,

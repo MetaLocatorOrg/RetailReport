@@ -96,7 +96,12 @@ class GetRetailReport extends Base
             $view->config->addTranslations(array(
                 'label' => $this->dimension->getName(),
                 'unique_purchase' => 'Unique purchase',
-                'product_name' => 'Product Name'
+                'product_name' => 'Product Name',
+                'campaign_name' => 'UTM CAMPAIGN',
+                'campaign_content' => 'UTM CONTENT',
+                'campaign_keyword' => 'UTM KEYWORD',
+                'campaign_medium' => 'UTM MEDIUM',
+                'campaign_source' => 'UTM SOURCE',
             ));
         }
 
