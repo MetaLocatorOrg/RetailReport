@@ -154,7 +154,7 @@ class Archiver extends \Piwik\Plugin\Archiver
             array(
                 "table" => "log_visit",
                 "tableAlias" => "log_visit",
-                "joinOn" => sprintf("log_visit.idvisit = log_coversion.idvisit")
+                "joinOn" => sprintf("log_visit.idvisit = log_conversion_alias.idvisit")
             ),
         );
 
