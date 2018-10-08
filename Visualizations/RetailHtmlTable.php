@@ -71,6 +71,11 @@ class RetailHtmlTable extends Visualization
             $period = 'range';
         }
         $this->config->columns_to_display = $this->array_insert($this->config->columns_to_display, 'product_name', 1);
+        $this->config->columns_to_display = $this->array_insert($this->config->columns_to_display, 'campaign_source', 9);
+        $this->config->columns_to_display = $this->array_insert($this->config->columns_to_display, 'campaign_name', 10);
+        $this->config->columns_to_display = $this->array_insert($this->config->columns_to_display, 'campaign_medium', 11);
+        $this->config->columns_to_display = $this->array_insert($this->config->columns_to_display, 'campaign_content', 12);
+        $this->config->columns_to_display = $this->array_insert($this->config->columns_to_display, 'campaign_keyword', 13);
 
         if ($this->dataTable->getRowsCount()) {
             $request = new ApiRequest(array(
